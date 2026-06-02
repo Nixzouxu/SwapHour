@@ -26,4 +26,15 @@ describe('Fase 2 & 3: Manajemen Profil dan Katalog Jasa', () => {
     // 4. VALIDASI BUG-002: Memastikan item baru langsung muncul secara reaktif di layar utama tanpa hard refresh
     cy.get('body').should('contain.text', 'Jasa Pembuatan Desain UI Aplikasi'); 
   });
+  // TES 2: Validasi Bug Penyaringan Kategori (BUG-003)
+  it('Harus tetap menampilkan kartu jasa yang sesuai saat kategori Desain diklik', () => {
+    // 1. Navigasi langsung ke halaman Katalog Utama (Semua)
+    cy.visit('/catalog'); 
+    
+    // 2. Klik tombol filter kategori "Desain" sesuai instruksi UAT
+    cy.contains('button', /desain/i).click(); 
+
+    // 3. VALIDASI BUG-003: Memastikan kartu tetap tampil dan tidak memicu pesan error pencarian
+    cy.get('body').should('not.contain.text', 'Tidak ada keahlian ditemukan'); 
+  });
 });
